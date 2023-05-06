@@ -35,7 +35,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   selectLanguage(lang: string) {
     this.translationService.setLanguage(lang);
     this.setLanguage(lang);
-    // document.location.reload();
+     document.location.reload();
   }
 
   setLanguage(lang: string) {

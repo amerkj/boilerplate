@@ -34,8 +34,16 @@ export class AppComponent implements OnInit {
       frLang
     );
   }
-
+ 
   ngOnInit() {
+    const currentLang = localStorage.getItem('language');
+if (currentLang === 'ar') {
+  document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+  document.getElementsByTagName('html')[0].setAttribute('lang', 'ar');
+} else {
+  document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
+  document.getElementsByTagName('html')[0].setAttribute('lang', 'en');
+}
     this.modeService.init();
   }
 }
