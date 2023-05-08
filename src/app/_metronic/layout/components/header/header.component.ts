@@ -31,6 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   appHeaderDefaultContent: string = '';
   appHeaderDefaulMenuDisplay: boolean;
   appPageTitleDisplay: boolean;
+  sidebarOpen = false;
 
   constructor(private layout: LayoutService, private router: Router) {
     this.routingChanges();
@@ -124,6 +125,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(layoutSubscr);
   }
 
+  toggleSidebar(){
+    const currentLang = localStorage.getItem('language');
+    if (currentLang === 'ar') {
+    const sidebar = document.querySelector('.app-sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('show', !this.sidebarOpen);
+      this.sidebarOpen = !this.sidebarOpen;
+    }
+  }
+  }
+  
+
   routingChanges() {
     const routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd || event instanceof NavigationCancel) {
@@ -132,6 +145,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.unsubscribe.push(routerSubscription);
   }
+
+  
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

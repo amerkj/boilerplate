@@ -13,3 +13,18 @@
     transition: opacity 1s ease-in-out;
   }
 }
+
+
+.arabic-sidebar {
+  right: 0;
+  left: unset;
+}
+
+@media (max-width: 992px) {
+  .arabic-sidebar {
+    transform: translateX(100%);
+  }
+  .arabic-sidebar.show {
+    transform: translateX(0%);
+  }
+}

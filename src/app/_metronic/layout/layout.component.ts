@@ -17,6 +17,7 @@ import { ILayout, LayoutType } from './core/configs/config';
   styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
+  localStorage = window.localStorage;
   private unsubscribe: Subscription[] = [];
 
   // Public variables
