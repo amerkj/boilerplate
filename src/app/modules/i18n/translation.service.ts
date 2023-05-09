@@ -3,6 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import {BehaviorSubject} from "rxjs";
 
 export interface Locale {
   lang: string;
@@ -15,12 +16,23 @@ const LOCALIZATION_LOCAL_STORAGE_KEY = 'language';
   providedIn: 'root',
 })
 export class TranslationService {
+  
   // Private properties
   private langIds: any = [];
+
+  currentRtlSubject: BehaviorSubject<boolean>;
+  public RTL : boolean;
+
 
   constructor(private translate: TranslateService) {
     // add new langIds to the list
     this.translate.addLangs(['en']);
+    if(this.getSelectedLanguage() === 'en'){
+      this.currentRtlSubject = new BehaviorSubject<boolean>(false);
+    }
+    else {
+      this.currentRtlSubject = new BehaviorSubject<boolean>(true);
+    }
 
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('en');
@@ -45,6 +57,11 @@ export class TranslationService {
     if (lang) {
       this.translate.use(this.translate.getDefaultLang());
       this.translate.use(lang);
+      if (lang === 'ar'){
+        this.currentRtlSubject.next(true);
+      }else {
+        this.currentRtlSubject.next(false);
+      } 
       localStorage.setItem(LOCALIZATION_LOCAL_STORAGE_KEY, lang);
     }
   }
